@@ -90,25 +90,25 @@ const Fechamento: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 mb-6">
-        <div className="glass-panel p-6 flex flex-col items-center justify-center">
-          <p className="text-muted mb-2">Total de Horas</p>
-          <h2 className="text-2xl font-bold">{decimalToHHMM(totalHorasMensal)}</h2>
+      <div className="grid grid-cols-3 gap-4 mb-4">
+        <div className="glass-panel p-4 flex flex-col items-center justify-center">
+          <p className="text-muted mb-1 text-sm">Total de Horas</p>
+          <h2 className="text-xl font-bold">{decimalToHHMM(totalHorasMensal)}</h2>
         </div>
-        <div className="glass-panel p-6 flex flex-col items-center justify-center">
-          <p className="text-muted mb-2">Total a Faturar</p>
-          <h2 className="text-2xl font-bold" style={{ color: 'var(--secondary)' }}>
+        <div className="glass-panel p-4 flex flex-col items-center justify-center">
+          <p className="text-muted mb-1 text-sm">Total a Faturar</p>
+          <h2 className="text-xl font-bold" style={{ color: 'var(--secondary)' }}>
             R$ {totalGeralMensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
           </h2>
         </div>
-        <div className="glass-panel p-6 flex flex-col items-center justify-center">
-          <p className="text-muted mb-2">Status do Mês</p>
+        <div className="glass-panel p-4 flex flex-col items-center justify-center">
+          <p className="text-muted mb-1 text-sm">Status do Mês</p>
           {temPendenciasGerais ? (
-            <span className="badge badge-pending text-xl" style={{ padding: '0.5rem 1rem' }}>Aberto (Pendente Faturar)</span>
+            <span className="badge badge-pending text-md" style={{ padding: '0.3rem 0.8rem' }}>Aberto (Pendente)</span>
           ) : resumo.length > 0 ? (
-            <span className="badge badge-active text-xl" style={{ padding: '0.5rem 1rem' }}>Tudo Faturado</span>
+            <span className="badge badge-active text-md" style={{ padding: '0.3rem 0.8rem' }}>Tudo Faturado</span>
           ) : (
-            <span className="badge text-muted text-xl" style={{ padding: '0.5rem 1rem' }}>Sem apontamentos</span>
+            <span className="badge text-muted text-md" style={{ padding: '0.3rem 0.8rem' }}>Sem dados</span>
           )}
         </div>
       </div>
@@ -121,17 +121,17 @@ const Fechamento: React.FC = () => {
         <div className="flex flex-col gap-6">
           {resumo.map(cli => (
             <div key={cli.id} className="glass-panel overflow-hidden" style={{ padding: 0 }}>
-              <div className="flex justify-between items-center p-4 bg-black/20" style={{ borderBottom: '1px solid var(--border-color)' }}>
-                <h3 className="font-bold flex items-center gap-2">
-                  {cli.nome} <span className="text-muted text-sm font-normal">({cli.empresa})</span>
+              <div className="flex justify-between items-center p-3 bg-black/20" style={{ borderBottom: '1px solid var(--border-color)' }}>
+                <h3 className="font-bold flex items-center gap-2 text-md">
+                  {cli.nome} <span className="text-muted text-xs font-normal">({cli.empresa})</span>
                 </h3>
-                <div className="flex gap-4 font-bold">
+                <div className="flex gap-4 font-bold text-sm">
                   <span>{decimalToHHMM(cli.horasTotaisCliente)}</span>
                   <span style={{ color: 'var(--secondary)' }}>R$ {cli.valorTotalCliente.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 </div>
               </div>
-              <div className="p-4">
-                <table style={{ background: 'transparent', border: 'none' }}>
+              <div className="p-2">
+                <table style={{ background: 'transparent', border: 'none', fontSize: '0.9rem' }}>
                   <thead>
                     <tr>
                       <th style={{ background: 'transparent', padding: '0.5rem' }}>Projeto</th>
