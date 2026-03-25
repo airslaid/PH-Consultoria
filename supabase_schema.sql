@@ -69,6 +69,18 @@ CREATE TABLE IF NOT EXISTS faturamentos (
   UNIQUE(projeto_id, mes)
 );
 
+-- 7. Tabela de Etapas (Cronograma/Gantt)
+CREATE TABLE IF NOT EXISTS etapas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  projeto_id UUID REFERENCES projetos(id) ON DELETE CASCADE,
+  descricao TEXT NOT NULL,
+  data_inicio DATE NOT NULL,
+  data_fim DATE NOT NULL,
+  status TEXT DEFAULT 'Pendente' CHECK (status IN ('Pendente', 'Em Andamento', 'Concluido')),
+  progresso INTEGER DEFAULT 0 CHECK (progresso >= 0 AND progresso <= 100),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Inserir Usuário Administrador Padrão
 INSERT INTO usuarios (nome, email, senha, role)
 VALUES ('Patrick Admin', 'patrick@phconsultoria.com.br', '1234', 'ADMIN')

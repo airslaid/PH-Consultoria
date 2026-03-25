@@ -10,6 +10,7 @@ import Apontamentos from './pages/Apontamentos';
 import Fechamento from './pages/Fechamento';
 import Acessos from './pages/Acessos';
 import Demandas from './pages/Demandas';
+import Gantt from './pages/Gantt';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { currentUser } = useAppContext();
@@ -29,6 +30,7 @@ function App() {
             <Route path="projetos" element={<Projetos />} />
             <Route path="apontamentos" element={<Apontamentos />} />
             <Route path="fechamento" element={<Fechamento />} />
+            <Route path="gantt" element={<Gantt />} />
             <Route path="acessos" element={<Acessos />} />
           </Route>
         </Routes>

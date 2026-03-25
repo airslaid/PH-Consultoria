@@ -59,3 +59,14 @@ export interface Faturamento {
   faturado: boolean;
   created_at?: string;
 }
+
+export interface Etapa {
+  id: string;
+  projeto_id: string;
+  descricao: string;
+  data_inicio: string; // YYYY-MM-DD
+  data_fim: string; // YYYY-MM-DD
+  status: 'Pendente' | 'Em Andamento' | 'Concluido';
+  progresso: number; // 0-100
+  created_at?: string;
+}

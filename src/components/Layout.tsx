@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, Users, FolderKanban, Clock, FileCheck, LogOut, ShieldCheck, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, Users, FolderKanban, Clock, FileCheck, LogOut, ShieldCheck, MessageSquare, CalendarRange } from 'lucide-react';
 import { useAppContext } from '../store/AppContext';
 
 export const Layout: React.FC = () => {
@@ -13,6 +13,7 @@ export const Layout: React.FC = () => {
     { name: 'Clientes', path: '/clientes', icon: <Users size={16} /> },
     { name: 'Projetos', path: '/projetos', icon: <FolderKanban size={16} /> },
     { name: 'Apontamentos', path: '/apontamentos', icon: <Clock size={16} /> },
+    { name: 'Gantt', path: '/gantt', icon: <CalendarRange size={16} /> },
     { name: 'Fechamento', path: '/fechamento', icon: <FileCheck size={16} /> },
     { name: 'Acessos', path: '/acessos', icon: <ShieldCheck size={16} /> },
   ] : [

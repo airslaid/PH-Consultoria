@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import type { Cliente, Projeto, Apontamento, Usuario, Demanda, Faturamento } from '../types';
+import type { Cliente, Projeto, Apontamento, Usuario, Demanda, Faturamento, Etapa } from '../types';
 import { supabase } from '../lib/supabase';
 
 interface AppContextData {
@@ -9,6 +9,7 @@ interface AppContextData {
   usuarios: Usuario[];
   demandas: Demanda[];
   faturamentos: Faturamento[];
+  etapas: Etapa[];
   currentUser: Usuario | null;
   addCliente: (cliente: Cliente) => void;
   updateCliente: (cliente: Cliente) => void;
@@ -27,6 +28,9 @@ interface AppContextData {
   addDemanda: (demanda: Demanda) => void;
   updateDemanda: (demanda: Demanda) => void;
   deleteDemanda: (id: string) => void;
+  addEtapa: (etapa: Etapa) => Promise<void>;
+  updateEtapa: (etapa: Etapa) => Promise<void>;
+  deleteEtapa: (id: string) => Promise<void>;
   login: (email: string, pass: string) => boolean;
   logout: () => void;
 }
@@ -40,6 +44,7 @@ export const AppProvider: React.FC<{children: React.ReactNode}> = ({ children })
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [demandas, setDemandas] = useState<Demanda[]>([]);
   const [faturamentos, setFaturamentos] = useState<Faturamento[]>([]);
+  const [etapas, setEtapas] = useState<Etapa[]>([]);
   const [currentUser, setCurrentUser] = useState<Usuario | null>(() => JSON.parse(localStorage.getItem('pbi-auth') || 'null'));
 
   // Carregar dados iniciais
@@ -51,6 +56,7 @@ export const AppProvider: React.FC<{children: React.ReactNode}> = ({ children })
       const { data: u } = await supabase.from('usuarios').select('*');
       const { data: d } = await supabase.from('demandas').select('*');
       const { data: f } = await supabase.from('faturamentos').select('*');
+      const { data: et } = await supabase.from('etapas').select('*');
       
       if (c) setClientes(c);
       if (p) setProjetos(p);
@@ -58,6 +64,7 @@ export const AppProvider: React.FC<{children: React.ReactNode}> = ({ children })
       if (u) setUsuarios(u);
       if (d) setDemandas(d);
       if (f) setFaturamentos(f);
+      if (et) setEtapas(et);
     };
     fetchData();
   }, []);
@@ -162,6 +169,21 @@ export const AppProvider: React.FC<{children: React.ReactNode}> = ({ children })
     if (data) setFaturamentos(prev => prev.map(f => f.id === id ? data : f));
   };
 
+  const addEtapa = async (etapa: Etapa) => {
+    const { data, error } = await supabase.from('etapas').insert(etapa).select().single();
+    if (error) { console.error('Erro ao adicionar etapa:', error); return; }
+    if (data) setEtapas(prev => [...prev, data]);
+  };
+  const updateEtapa = async (etapa: Etapa) => {
+    const { data, error } = await supabase.from('etapas').update(etapa).eq('id', etapa.id).select().single();
+    if (error) { console.error('Erro ao atualizar etapa:', error); return; }
+    if (data) setEtapas(prev => prev.map(e => e.id === etapa.id ? data : e));
+  };
+  const deleteEtapa = async (id: string) => {
+    await supabase.from('etapas').delete().eq('id', id);
+    setEtapas(prev => prev.filter(e => e.id !== id));
+  };
+
   const login = (email: string, pass: string) => {
     const user = usuarios.find(u => u.email === email && u.senha === pass);
     if (user) {
@@ -175,12 +197,13 @@ export const AppProvider: React.FC<{children: React.ReactNode}> = ({ children })
 
   return (
     <AppContext.Provider value={{
-      clientes, projetos, apontamentos, usuarios, demandas, faturamentos, currentUser,
+      clientes, projetos, apontamentos, usuarios, demandas, faturamentos, etapas, currentUser,
       addCliente, updateCliente, deleteCliente,
       addProjeto, updateProjeto, deleteProjeto,
       addApontamento, updateApontamento, deleteApontamento, fecharMes, toggleFaturamento,
       addUsuario, updateUsuario, deleteUsuario,
       addDemanda, updateDemanda, deleteDemanda,
+      addEtapa, updateEtapa, deleteEtapa,
       login, logout
     }}>
       {children}
