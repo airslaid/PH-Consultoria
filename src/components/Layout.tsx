@@ -22,7 +22,7 @@ export const Layout: React.FC = () => {
 
   return (
     <div className="flex" style={{ height: '100vh', width: '100vw' }}>
-      <div style={{ width: '260px', backgroundColor: '#f9fafb', borderRight: '1px solid var(--border-color)', padding: '1.5rem', display: 'flex', flexDirection: 'column', zIndex: 10 }}>
+      <div style={{ width: '210px', backgroundColor: '#f9fafb', borderRight: '1px solid var(--border-color)', padding: '1rem', display: 'flex', flexDirection: 'column', zIndex: 10 }}>
         <div className="flex justify-center mb-6">
           <img src="/logo.png" alt="Logo" style={{ width: '100%', maxHeight: '80px', objectFit: 'contain' }} />
         </div>

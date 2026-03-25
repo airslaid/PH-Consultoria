@@ -42,7 +42,6 @@ const Dashboard: React.FC = () => {
           </div>
           <p className="text-muted text-sm font-medium">Projetos Ativos</p>
         </Link>
-...
 
         <Link to="/apontamentos" className="glass-panel p-4 flex flex-col hover:-translate-y-1" style={{ textDecoration: 'none', transition: 'all 0.2s' }}>
           <div className="flex justify-between items-start mb-2">

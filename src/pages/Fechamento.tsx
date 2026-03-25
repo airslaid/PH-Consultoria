@@ -121,13 +121,13 @@ const Fechamento: React.FC = () => {
         <div className="flex flex-col gap-6">
           {resumo.map(cli => (
             <div key={cli.id} className="glass-panel overflow-hidden" style={{ padding: 0 }}>
-              <div className="flex justify-between items-center p-3 bg-black/20" style={{ borderBottom: '1px solid var(--border-color)' }}>
-                <h3 className="font-bold flex items-center gap-2 text-md">
+              <div className="flex justify-between items-center p-3 bg-black/20" style={{ borderBottom: '1px solid var(--border-color)', width: '100%' }}>
+                <h3 className="font-bold flex items-center gap-2 text-md" style={{ margin: 0 }}>
                   {cli.nome} <span className="text-muted text-xs font-normal">({cli.empresa})</span>
                 </h3>
-                <div className="flex gap-4 font-bold text-sm">
-                  <span>{decimalToHHMM(cli.horasTotaisCliente)}</span>
-                  <span style={{ color: 'var(--secondary)' }}>R$ {cli.valorTotalCliente.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                <div className="flex gap-6 font-bold text-sm">
+                  <span className="text-muted">{decimalToHHMM(cli.horasTotaisCliente)}</span>
+                  <span style={{ color: 'var(--primary)', minWidth: '100px', textAlign: 'right' }}>R$ {cli.valorTotalCliente.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 </div>
               </div>
               <div className="p-2">
